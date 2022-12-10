@@ -25,12 +25,16 @@ function App() {
       </div>
       <div className="table-responsive" id="tableData">
         {/* sort data table select box */}
-        <select name="order" onChange={(e) => setOrder(e.target.value)}>
+        <select
+          className="mb-3 mb-md-0"
+          name="order"
+          onChange={(e) => setOrder(e.target.value)}
+        >
           <option value="asc">Sort by ASC</option>
           <option value="desc">Sort by DESC</option>
         </select>
 
-        <table className="table table-striped table-sm">
+        <table className="table table-striped table-sm table-primary">
           <thead>
             <tr>
               <th scope="col">id</th>
@@ -49,7 +53,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {userData.map((data) => (
+            {userData?.map((data) => (
               <tr
                 className={
                   data.status === "true" ? "table-success" : "table-danger"
