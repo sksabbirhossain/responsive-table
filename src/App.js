@@ -3,18 +3,33 @@ import "./App.css";
 
 function App() {
   const [userData, setUserData] = useState([]);
+  const [order, setOrder] = useState("asc");
   useEffect(() => {
     //fetch data
     fetch("data.json")
       .then((res) => res.json())
-      .then((data) => setUserData(data));
-  }, []);
+      .then((data) => {
+        //get data by asc and desc order
+        if (order === "desc") {
+          const result = data.sort((a, b) => a.id.localeCompare(b.id));
+          return setUserData(result);
+        } else {
+          return setUserData(data);
+        }
+      });
+  }, [order]);
   return (
     <div className="container-fluid">
       <div className="my-4">
         <h2>Data Table</h2>
       </div>
       <div className="table-responsive" id="tableData">
+        {/* sort data table select box */}
+        <select name="order" onChange={(e) => setOrder(e.target.value)}>
+          <option value="asc">Sort by ASC</option>
+          <option value="desc">Sort by DESC</option>
+        </select>
+
         <table className="table table-striped table-sm">
           <thead>
             <tr>
